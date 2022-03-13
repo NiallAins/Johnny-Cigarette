@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "baseUrl": "./",
+    "baseUrl": "http://127.0.0.1:5500/dist/",
     "moduleResolution": "node",
     "paths": {
       "@/*": [

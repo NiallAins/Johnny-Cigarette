@@ -1,0 +1,28 @@
+@import 'vars.scss';
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inconsolata', 'Courier New', monospace;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $c-text;
+}
+
+a {
+  text-decoration: none;
+  color: $c-primary;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1, h2, h3, h4, h5, h6,
+ul, li,
+p {
+  margin: 0;
+  padding: 0;
+}
