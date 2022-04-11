@@ -34,6 +34,7 @@ $navAniDuation: 0.3s;
       padding-left: 1rem;
 
       a, button {
+        width: 100%;
         padding: 0;
         border: none;
         font-size: inherit;
@@ -43,6 +44,11 @@ $navAniDuation: 0.3s;
         color: inherit;
         background: none;
         cursor: pointer;
+
+        &:hover,
+        .active > & {
+          font-weight: 700;
+        }
       }
 
       &-sub {
@@ -60,11 +66,6 @@ $navAniDuation: 0.3s;
           .active > & {
             max-height: 4rem;
             margin: 1rem;
-          }
-
-          &:hover,
-          &.active {
-            font-weight: 700;
           }
         }
       }
