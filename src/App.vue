@@ -79,11 +79,11 @@
         class="app__main-gallery"
       >
         <img
+          v-for="(image, i) of pageData.images"
           class="app__main-gallery-item"
           :class="{'app__main-gallery-item--shop': currentSection === 'Shop'}"
-          v-for="(image, i) of pageData.images"
           :key="i"
-          :src="'../public/images/' + image"
+          :src="getImg(image)"
         />
       </div>
 
@@ -159,6 +159,9 @@
         if (typeof i === 'number') {
           this.navOpen[i] = true;
         }
+      },
+      getImg(image) {
+        return image ? require('../public/images/' + image) : '';
       }
     },
   }

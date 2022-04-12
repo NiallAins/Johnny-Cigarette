@@ -46,8 +46,7 @@ $navAniDuation: 0.3s;
         background: none;
         cursor: pointer;
 
-        &:hover,
-        .active > & {
+        &:hover {
           font-weight: 700;
         }
       }
@@ -57,7 +56,9 @@ $navAniDuation: 0.3s;
 
         &-item {
           max-height: 0;
+          padding-left: 0.125rem;
           margin: 0 1rem;
+          line-height: 1.25rem;
           font-weight: 400;
           overflow: hidden;
           transition:
@@ -67,6 +68,10 @@ $navAniDuation: 0.3s;
           .active > & {
             max-height: 4rem;
             margin: 1rem;
+          }
+
+          &.active {
+            font-weight: 700;
           }
         }
       }
