@@ -17,11 +17,15 @@
       class="app__nav"
       :class="{'open': mobileNavOpen}"
     >
-      <button
-        class="app__nav-button"
-        @click="mobileNavOpen = !mobileNavOpen"
-        aria-label="open navigation"
-      ></button>
+      <!-- Mobile burger menu -->
+      <div class="app__nav-button-container">
+        <button
+          class="app__nav-button"
+          @click="mobileNavOpen = !mobileNavOpen"
+          aria-label="open navigation"
+        ></button>
+      </div>
+
       <ul class="app__nav-list">
         <li
           v-for="(section, i) of $siteContent.sections"
@@ -33,6 +37,7 @@
           <a
             v-if="!section.pages"
             :href="'#/' + section.url"
+            @click="mobileNavOpen = false"
           >
             {{ section.title }}
           </a>
@@ -50,7 +55,10 @@
               class="app__nav-list-sub-item"
               :class="{'active': currentSection === section.url && currentPage === page.url}"
             >
-              <a :href="'#/' + section.url + '/' + page.url">
+              <a
+                :href="'#/' + section.url + '/' + page.url"
+                @click="mobileNavOpen = false"
+              >
                 {{ page.title }}
               </a>
             </li>
@@ -99,8 +107,8 @@
       <div v-if="pageData.videoLink">
         <iframe
           class="app__main-video-container"
-          width="720"
-          :height="pageData.videoLinkHeight || 405"
+          :width="videoPlayerWidth"
+          :height="videoPlayerHeight"
           :src="pageData.videoLink"
           title="Video player"
           frameborder="0"
@@ -120,7 +128,9 @@
         currentPage: '',
         pageData: {},
         navOpen: [],
-        mobileNavOpen: false
+        mobileNavOpen: false,
+        videoPlayerWidth: 720,
+        videoPlayerHeight: 405
       }
     },
     inject: ['$siteContent'],
@@ -133,7 +143,6 @@
     },
     methods: {
       urlChange() {
-        this.mobileNavOpen = false;
         const VIEW = window.location.hash.match(/[a-z0-9]+/gi);
         if (VIEW) {
           const SECTION = this.$siteContent.sections.find(s => s.url === VIEW[0]);
@@ -144,6 +153,7 @@
                 this.currentSection = VIEW[0];
                 this.currentPage = VIEW[1];
                 this.setPageTitle();
+                this.setVideoPlayerSize();
                 return;
               }
             } else {
@@ -152,6 +162,7 @@
                 this.currentSection = VIEW[0];
                 this.currentPage = '';
                 this.setPageTitle();
+                this.setVideoPlayerSize();
                 return;
               }
             }
@@ -163,6 +174,12 @@
       },
       setPageTitle() {
         document.title = this.$siteContent.title + ' | ' + (this.currentPage || this.currentSection);
+      },
+      setVideoPlayerSize() {
+        if (this.pageData.videoLink) {
+          this.videoPlayerWidth = window.innerWidth > 768 ? 720 : window.innerWidth - 48;
+          this.videoPlayerHeight = (this.pageData.videoLinkHeight || 405) * (this.videoPlayerWidth / 720);
+        }
       },
       openItem(i) {
         this.navOpen = this.navOpen.map(() => false);

@@ -12,10 +12,9 @@ $navAniDuation: 0.3s;
   column-gap: 2rem;
   max-width: 80rem;
   padding: 0 1rem;
-  margin: 4rem auto;
+  margin: 4rem auto 2rem;
 
   @media (max-width: $sm-viewport) {
-    position: fixed;
     grid-template-columns: unset;
   }
 
@@ -35,14 +34,22 @@ $navAniDuation: 0.3s;
     grid-column: 1;
 
     &-button {
-      position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
+      position: relative;
       background: #fff;
       border: none;
-      z-index: 150;
       width: 2rem;
       height: 1.5rem;
+
+      &-container {
+        position: fixed;
+        display: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 150;
+        padding: 1.5rem;
+        background: #fff;
+      }
 
       &:after {
         content: '';
@@ -67,7 +74,7 @@ $navAniDuation: 0.3s;
         transition: transform $navAniDuation;
       }
 
-      .open > & {
+      .open & {
         &:after {
           inset: 50% 0 50% 0;
           border-width: 1px 0 0 0;
@@ -171,7 +178,7 @@ $navAniDuation: 0.3s;
         left: 0;
       }
 
-      &-button {
+      &-button-container {
         display: block;
       }
     }
