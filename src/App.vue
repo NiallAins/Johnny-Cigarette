@@ -13,7 +13,15 @@
     <!--
     ---- Nav
     --->
-    <nav class="app__nav">
+    <nav
+      class="app__nav"
+      :class="{'open': mobileNavOpen}"
+    >
+      <button
+        class="app__nav-button"
+        @click="mobileNavOpen = !mobileNavOpen"
+        aria-label="open navigation"
+      ></button>
       <ul class="app__nav-list">
         <li
           v-for="(section, i) of $siteContent.sections"
@@ -111,7 +119,8 @@
         currentSection: '',
         currentPage: '',
         pageData: {},
-        navOpen: []
+        navOpen: [],
+        mobileNavOpen: false
       }
     },
     inject: ['$siteContent'],
@@ -124,6 +133,7 @@
     },
     methods: {
       urlChange() {
+        this.mobileNavOpen = false;
         const VIEW = window.location.hash.match(/[a-z0-9]+/gi);
         if (VIEW) {
           const SECTION = this.$siteContent.sections.find(s => s.url === VIEW[0]);
