@@ -1,7 +1,6 @@
 @import './style.scss';
-@import './_vars.scss';
+@import './vars';
 
-$sm-viewport: 45rem;
 $navAniDuation: 0.3s;
 
 .app {
@@ -215,7 +214,7 @@ $navAniDuation: 0.3s;
     }
 
     &-video-container {
-      border-radius: 1rem;
+      border-radius: $border-rad;
       margin-top: 1rem;
       overflow: hidden;
     }
@@ -224,15 +223,56 @@ $navAniDuation: 0.3s;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      margin-right: -1rem;
 
       &-item {
         flex: 1;
         min-width: 30%;
         max-width: 60%;
         margin-bottom: 2rem;
+        cursor: pointer;
+        margin-right: 1rem;
 
         &--shop {
+          min-width: calc(50% - 1rem);
+        }
+      }
+    }
+
+    &-lightbox {
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      inset: 0;
+      background: #0008;
+      opacity: 0;
+      z-index: -200;
+      pointer-events: none;
+      cursor: pointer;
+      transition:
+        opacity $navAniDuation,
+        z-index 0s ease $navAniDuation;
+
+      img {
+        max-width: calc(100vw - 1rem);
+        max-height: calc(100vh - 1rem);
+        border-radius: $border-rad;
+      }
+
+      &.open {
+        opacity: 1;
+        pointer-events: all;
+        z-index: 200;
+        transition: opacity $navAniDuation;
+      }
+    }
+
+    @media (max-width: $md-viewport) {
+      &-gallery {
+        &-item {
           min-width: 50%;
+          max-width: 100%;
         }
       }
     }

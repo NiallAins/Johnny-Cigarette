@@ -100,7 +100,23 @@
           :class="{'app__main-gallery-item--shop': currentSection === 'Shop'}"
           :key="i"
           :src="getImg(image)"
+          tabindex="0"
+          role="button"
+          aria-label="enlarge image"
+          @click="lightboxImage = image"
         />
+      </div>
+
+      <!-- Image lightbox -->
+      <div
+        class="app__main-lightbox"
+        :class="{'open': lightboxImage}"
+        tabindex="0"
+        role="button"
+        aria-label="close image"
+        @click="lightboxImage = null"
+      >
+        <img :src="getImg(lightboxImage)" />
       </div>
 
       <!-- Video link -->
@@ -129,8 +145,9 @@
         pageData: {},
         navOpen: [],
         mobileNavOpen: false,
+        lightboxImage: null,
         videoPlayerWidth: 720,
-        videoPlayerHeight: 405
+        videoPlayerHeight: 405,
       }
     },
     inject: ['$siteContent'],
