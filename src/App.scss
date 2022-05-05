@@ -232,6 +232,12 @@ $navAniDuation: 0.3s;
         margin-bottom: 2rem;
         cursor: pointer;
         margin-right: 1rem;
+        opacity: 0;
+        
+        &.loaded {
+          opacity: 1;
+          transition: opacity $navAniDuation;
+        }
 
         &--shop {
           min-width: calc(50% - 1rem);

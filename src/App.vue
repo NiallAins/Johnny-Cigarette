@@ -97,13 +97,17 @@
         <img
           v-for="(image, i) of pageData.images"
           class="app__main-gallery-item"
-          :class="{'app__main-gallery-item--shop': currentSection === 'Shop'}"
+          :class="{
+            'app__main-gallery-item--shop': currentSection === 'Shop',
+            'loaded': imageLoadState[i]
+          }"
           :key="i"
           :src="getImg(image)"
           tabindex="0"
           role="button"
           aria-label="enlarge image"
           @click="lightboxImage = image"
+          @load="imageLoadState[i] = true"
         />
       </div>
 
@@ -144,6 +148,7 @@
         currentPage: '',
         pageData: {},
         navOpen: [],
+        imageLoadState: [],
         mobileNavOpen: false,
         lightboxImage: null,
         videoPlayerWidth: 720,
@@ -169,8 +174,7 @@
               if (this.pageData) {
                 this.currentSection = VIEW[0];
                 this.currentPage = VIEW[1];
-                this.setPageTitle();
-                this.setVideoPlayerSize();
+                this.renderPage();
                 return;
               }
             } else {
@@ -178,8 +182,7 @@
               if (this.pageData) {
                 this.currentSection = VIEW[0];
                 this.currentPage = '';
-                this.setPageTitle();
-                this.setVideoPlayerSize();
+                this.renderPage();
                 return;
               }
             }
@@ -189,10 +192,14 @@
         // Default to about page
         window.location.hash = '#/About';
       },
-      setPageTitle() {
+      renderPage() {
+        // Set page title
         document.title = this.$siteContent.title + ' | ' + (this.currentPage || this.currentSection);
-      },
-      setVideoPlayerSize() {
+
+        // Hide images until loaded
+        this.imageLoadState = new Array(this.pageData.images.length).fill(false);
+
+        // Set video player size
         if (this.pageData.videoLink) {
           this.videoPlayerWidth = window.innerWidth > 768 ? 720 : window.innerWidth - 48;
           this.videoPlayerHeight = (this.pageData.videoLinkHeight || 405) * (this.videoPlayerWidth / 720);
