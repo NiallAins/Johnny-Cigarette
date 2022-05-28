@@ -310,19 +310,18 @@ $navAniDuation: 0.3s;
 
     @media (max-width: $sm-viewport) {
       grid-column: 1;
-      grid-row: 3;
-
-      // Show site logo as first image on mobile
-      &.landing-page &-gallery &-item:nth-child(4) {
-        order: -1
+      
+      &, &.landing-page {
+        grid-row: 3;
       }
-
-      &-gallery {
-        display: block;
-
-        &-item {
-          width: 100%;
-          max-width: 100%;
+      
+      &-gallery-item {
+        width: 100%;
+        max-width: 100%;
+        
+        // Show site logo as first image on mobile
+        .landing-page &:nth-child(5) {
+          order: -1;
         }
       }
     }

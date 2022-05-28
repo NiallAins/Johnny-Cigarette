@@ -5,7 +5,7 @@
     --->
     <div class="app__icon">
       <a
-        href="/"
+        href="#/"
         aria-label="landing page"
       >
         <img
