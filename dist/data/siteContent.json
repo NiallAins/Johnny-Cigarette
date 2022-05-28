@@ -2,13 +2,6 @@
   "title": "Johnny Cigarette",
   "sections": [
     {
-      "title": "About",
-      "heading": "Johnny Cigarette",
-      "text": "Keith Kavanagh, Kav, or Johnny Cigarette is an Irish Animator and Illustrator who likes the idea of making a living submitting videos to \"You've Been Framed!\".<br/><br/>Feel free to contact me at <a href=\"mailto:johnnycigarette@gmail.com\">johnnycigarette@gmail.com</a>",
-      "linkTwitter": "https://twitter.com/kaaavx",
-      "linkInstagram": "https://www.instagram.com/johnnycigarettex/"
-    },
-    {
       "title": "Animation",
       "pages": [
         {
@@ -20,26 +13,26 @@
           "title": "Trinity College Dublin Consent Program",
           "text": "Would you believe this sexual deve was asked to create visuals for Trinity College Dublin's Consent Program? Sincerely grateful to Aoife Grimes for getting me involved in a project I was particularly passionate about; teaching níl to the young.<br/><br/><a href=\"https://www.tcd.ie/Student_Counselling/consent/education/video/index.php\">Watch the videos in full here</a>",
           "images": [
-            "sciencegal_(1).gif",
-            "sciencegal_(2).gif",
-            "sciencegal_(3).gif",
-            "sciencegal_(4).gif",
-            "sciencegal_(5).gif",
-            "sciencegal_(6).gif",
-            "sciencegal_(7).gif",
-            "sciencegal_(8).gif"
-          ],
-          "videos": [
-
+            "trinity_1.gif",
+            "trinity_2.gif",
+            "trinity_3.gif",
+            "trinity_4.gif",
+            "trinity_5.gif",
+            "trinity_6.gif",
+            "trinity_7.gif",
+            "trinity_8.gif",
+            "trinity_9.gif"
           ]
         },
         {
           "title": "Meatball",
           "text": "Featuring the talented tongues of Fiachra Corkery, Ellen O' Mahony and Euan Murphy, with thanks to Ross for the mugshot<br/><br/>Based on a comic from Cheers Vol. III",
-          "images": [
-            "meatball1.jpg",
-            "meatball2.jpg"
-          ]
+          "videoLink": "https://www.youtube.com/embed/mjlmd-0PUKc"
+        },
+        {
+          "title": "Marshmallow",
+          "text": "What's pink and white, a sweet delight and preferably referred to as princess? Not me silly! It's this marshmallow themed music video I made for Elise Tricoteaux",
+          "videoLink": "https://www.youtube.com/embed/C3goYpaeL6E"
         },
         {
           "title": "Smooth Mouth",
@@ -50,7 +43,16 @@
         {
           "title": "Science Gallery Dublin",
           "text": "Work for OPEN MIND, Science Gallery Dublin's aim to educate teenagers about their mental health, how to cope and most importantly, lets them know they're not alone",
-          "images": ""
+          "images": [
+            "sciencegal_(1).gif",
+            "sciencegal_(2).gif",
+            "sciencegal_(3).gif",
+            "sciencegal_(4).gif",
+            "sciencegal_(5).gif",
+            "sciencegal_(6).gif",
+            "sciencegal_(7).gif",
+            "sciencegal_(8).gif"
+          ]
         },
         {
           "title": "Demoreel 2019",
@@ -81,12 +83,12 @@
           "images": [
             "horsey.gif",
             "nice_beano.gif",
-            "pip_d.png",
+            "pipedream.gif",
             "hydrodeo.gif",
             "rrr.gif",
             "phonebooth.gif",
             "gems.gif",
-            "sunday_paper_b.gif",
+            "sunday_paper.gif",
             "FLEABAG.gif"
           ]
         }
@@ -213,6 +215,28 @@
             "sfmmm_b.jpg",
             "sfmmm_c.jpg"
           ]
+        }
+      ]
+    },
+    {
+      "title": "About",
+      "heading": "Johnny Cigarette",
+      "text": "Keith Kavanagh, Kav, or Johnny Cigarette is an Irish Animator and Illustrator who likes the idea of making a living submitting videos to \"You've Been Framed!\".<br/><br/>Feel free to get in contact:",
+      "contact": [
+        {
+          "text": "Email",
+          "label": "johnnycigarette@gmail.com",
+          "link": "mailto:johnnycigarette@gmail.com"
+        },
+        {
+          "text": "Twitter",
+          "label": "@kaaavx",
+          "link": "https://twitter.com/kaaavx"
+        },
+        {
+          "text": "Instagram",
+          "label": "@johnnycigarettex",
+          "link": "https://www.instagram.com/johnnycigarettex/"
         }
       ]
     }

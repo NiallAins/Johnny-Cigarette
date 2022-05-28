@@ -4,10 +4,15 @@
     ---- Icon
     --->
     <div class="app__icon">
-      <img
-        src="../public/images/kav-dance-logo.gif"
-        aria-hidden="true"
-      />
+      <a
+        href="/"
+        aria-label="landing page"
+      >
+        <img
+          src="../public/images/kav-dance-logo.gif"
+          aria-hidden="true"
+        />
+      </a>
     </div>
 
     <!--
@@ -82,12 +87,36 @@
     <!--
     ---- Main
     --->
-    <main class="app__main">
+    <main
+      class="app__main"
+      :class="{'landing-page': currentPage === 'landing'}"
+    >
       <p
         v-if="pageData.text"
         class="app__main-lede"
         :innerHTML="pageData.text"
       ></p>
+
+      <!-- Contact -->
+      <div 
+        v-if="pageData.contact"
+        class="app__main-contact"
+      >
+        <template
+          v-for="(contact, i) of pageData.contact"
+          :key="i"
+        >
+          <span>
+            {{ contact.text }}
+          </span>
+          <a
+            :href="contact.link"
+            target="_blank"
+          >
+            {{ contact.label }}   
+          </a>
+        </template>
+      </div>
 
       <!-- Gallery -->
       <div
@@ -105,7 +134,7 @@
           :src="getImg(image)"
           tabindex="0"
           role="button"
-          aria-label="enlarge image"
+          :aria-label="image + '. click to enlarge'"
           @click="lightboxImage = image"
           @load="imageLoadState[i] = true"
         />
@@ -165,6 +194,8 @@
     },
     methods: {
       urlChange() {
+        document.title = this.$siteContent.title;
+
         const VIEW = window.location.hash.match(/[a-z0-9]+/gi);
         if (VIEW) {
           const SECTION = this.$siteContent.sections.find(s => s.url === VIEW[0]);
@@ -174,30 +205,41 @@
               if (this.pageData) {
                 this.currentSection = VIEW[0];
                 this.currentPage = VIEW[1];
-                this.renderPage();
-                return;
               }
             } else {
               this.pageData = SECTION;
               if (this.pageData) {
                 this.currentSection = VIEW[0];
                 this.currentPage = '';
-                this.renderPage();
-                return;
               }
             }
           }
+
+          document.title += ' | ' + (this.currentPage || this.currentSection);
+        } else {
+          // Default to random grid of images for home page
+          const IMGS =
+            JSON.stringify(this.$siteContent)
+            .match(/"[a-z0-9-_()]+\.(gif|png|jpg)"/gi);
+          this.pageData = {
+            "title": "",
+            "text": "",
+            "images": []
+          }
+          for (let i = 0; i < 9; i++) {
+            let img;
+            do {
+              img = IMGS[Math.floor(Math.random() * IMGS.length)].replace(/"/g, '');
+            } while(this.pageData.images.indexOf(img) !== -1)
+            this.pageData.images.push(i === 4 ? 'johnny_title.png' : img);
+          }
+          this.currentPage = 'landing';
         }
 
-        // Default to about page
-        window.location.hash = '#/About';
-      },
-      renderPage() {
-        // Set page title
-        document.title = this.$siteContent.title + ' | ' + (this.currentPage || this.currentSection);
-
         // Hide images until loaded
-        this.imageLoadState = new Array(this.pageData.images.length).fill(false);
+        if (this.pageData.images) {
+          this.imageLoadState = new Array(this.pageData.images.length).fill(false);
+        }
 
         // Set video player size
         if (this.pageData.videoLink) {
@@ -212,9 +254,13 @@
         }
       },
       getImg(image) {
-        return image ? require('../public/images/' + image) : '';
+        try {
+          return image ? require('../public/images/' + image) : '';
+        } catch(err) {
+          return '';
+        }
       }
-    },
+    }
   }
 </script>
 
