@@ -9,7 +9,7 @@
         aria-label="landing page"
       >
         <img
-          src="../public/images/kav-dance-logo.gif"
+          src="images/kav-dance-logo.gif"
           aria-hidden="true"
         />
       </a>
@@ -118,6 +118,19 @@
         </template>
       </div>
 
+      <!-- Video link -->
+      <div v-if="pageData.videoLink">
+        <iframe
+          class="app__main-video-container"
+          :width="videoPlayerWidth"
+          :height="videoPlayerHeight"
+          :src="pageData.videoLink"
+          title="Video player"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+
       <!-- Gallery -->
       <div
         v-if="pageData.images"
@@ -131,10 +144,11 @@
             'loaded': imageLoadState[i]
           }"
           :key="i"
-          :src="getImg(image)"
+          :src="'images/' + image"
           tabindex="0"
           role="button"
           :aria-label="image + '. click to enlarge'"
+          :alt="image"
           @click="lightboxImage = image"
           @load="imageLoadState[i] = true"
         />
@@ -149,20 +163,10 @@
         aria-label="close image"
         @click="lightboxImage = null"
       >
-        <img :src="getImg(lightboxImage)" />
-      </div>
-
-      <!-- Video link -->
-      <div v-if="pageData.videoLink">
-        <iframe
-          class="app__main-video-container"
-          :width="videoPlayerWidth"
-          :height="videoPlayerHeight"
-          :src="pageData.videoLink"
-          title="Video player"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
+        <img
+          :src="'images/' + lightboxImage"
+          :alt="lightboxImage"
+        />
       </div>
     </main>
   </div>
@@ -231,8 +235,9 @@
             do {
               img = IMGS[Math.floor(Math.random() * IMGS.length)].replace(/"/g, '');
             } while(this.pageData.images.indexOf(img) !== -1)
-            this.pageData.images.push(i === 4 ? 'johnny_title.png' : img);
+            this.pageData.images.push(i === 4 ? this.$siteContent.landingImage : img);
           }
+          this.currentSection = '';
           this.currentPage = 'landing';
         }
 
@@ -251,13 +256,6 @@
         this.navOpen = this.navOpen.map(() => false);
         if (typeof i === 'number') {
           this.navOpen[i] = true;
-        }
-      },
-      getImg(image) {
-        try {
-          return image ? require('../public/images/' + image) : '';
-        } catch(err) {
-          return '';
         }
       }
     }

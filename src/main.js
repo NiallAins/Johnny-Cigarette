@@ -6,7 +6,7 @@ function formatUrl(s) {
 }
 
 // Load site dynmaic data
-fetch('data/siteContent.json')
+fetch('siteContent.json')
   .then(response => response.json()
     .then(data => {
       const APP = createApp(App);
