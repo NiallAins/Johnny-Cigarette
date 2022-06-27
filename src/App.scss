@@ -239,63 +239,54 @@ $navAniDuation: 0.3s;
 
     &-video-container {
       border-radius: $border-rad;
-      margin-top: 1rem;
+      margin: 1rem 0 2rem;
       overflow: hidden;
     }
 
     &-gallery {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       margin-right: -1rem;
 
       &-item {
-        flex: 1;
-        min-width: 30%;
-        max-width: 60%;
         border-radius: $border-rad;
         margin-bottom: 2rem;
         margin-right: 1rem;
         opacity: 0;
-        cursor: pointer;
         
         &.loaded {
           opacity: 1;
           transition: opacity $navAniDuation;
         }
 
-        &--shop {
+        &:not(.hasLightbox) {
           min-width: calc(50% - 1rem);
+          max-width: 100%;
+          flex: unset;
+        }
+
+        &.hasLightbox,
+        .landing-page & {
+          flex: 1;
+          min-width: unset;
+          max-width: calc(33.33% - 1rem); 
+          cursor: pointer;
+
+          &.open {
+            opacity: 0.2;
+            cursor: default;
+          }
         }
       }
     }
 
     &-lightbox {
-      position: fixed;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      inset: 0;
-      background: #000a;
-      opacity: 0;
-      z-index: -200;
-      pointer-events: none;
-      cursor: pointer;
-      transition:
-        opacity $navAniDuation,
-        z-index 0s ease $navAniDuation;
+      width: 100%;
+      margin-bottom: 2rem;
 
       img {
-        background: #fff;
-        max-width: calc(100vw - 1rem);
-        max-height: calc(100vh - 1rem);
-      }
-
-      &.open {
-        opacity: 1;
-        pointer-events: all;
-        z-index: 200;
-        transition: opacity $navAniDuation;
+        max-width: 100%;
+        max-height: 100%;
       }
     }
 
@@ -318,11 +309,20 @@ $navAniDuation: 0.3s;
       &-gallery-item {
         width: 100%;
         max-width: 100%;
+
+        &:not(.hasLightbox) {
+          width: 100%;
+          max-width: 100%;
+        }
         
         // Show site logo as first image on mobile
         .landing-page &:nth-child(5) {
           order: -1;
         }
+      }
+
+      &-lightbox {
+        display: none;
       }
     }
   }

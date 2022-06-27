@@ -131,41 +131,40 @@
         ></iframe>
       </div>
 
+      <!-- Image lightbox -->
+      <div
+        v-if="hasLightbox"
+        id="w34ufs"
+        class="app__main-lightbox"
+      >
+        <img
+          :src="'images/' + lightboxImage"
+          :alt="lightboxImage"
+        />
+      </div>
+
       <!-- Gallery -->
       <div
         v-if="pageData.images"
-        class="app__main-gallery"
+        class="app__main-gallery" 
       >
         <img
           v-for="(image, i) of pageData.images"
           class="app__main-gallery-item"
           :class="{
             'app__main-gallery-item--shop': currentSection === 'Shop',
-            'loaded': imageLoadState[i]
+            'loaded': imageLoadState[i],
+            'hasLightbox': hasLightbox,
+            'open': lightboxImage === image
           }"
           :key="i"
           :src="'images/' + image"
-          tabindex="0"
+          :tabindex="pageData.images.length > 2 ? 0 : -1"
           role="button"
           :aria-label="image + '. click to enlarge'"
           :alt="image"
-          @click="lightboxImage = image"
+          @click="openImage(image)"
           @load="imageLoadState[i] = true"
-        />
-      </div>
-
-      <!-- Image lightbox -->
-      <div
-        class="app__main-lightbox"
-        :class="{'open': lightboxImage}"
-        tabindex="0"
-        role="button"
-        aria-label="close image"
-        @click="lightboxImage = null"
-      >
-        <img
-          :src="'images/' + lightboxImage"
-          :alt="lightboxImage"
         />
       </div>
     </main>
@@ -184,6 +183,7 @@
         imageLoadState: [],
         mobileNavOpen: false,
         lightboxImage: null,
+        hasLightbox: false,
         videoPlayerWidth: 720,
         videoPlayerHeight: 405,
       }
@@ -199,6 +199,7 @@
     methods: {
       urlChange() {
         document.title = this.$siteContent.title;
+        window.scrollTo(0, 0);
 
         const VIEW = window.location.hash.match(/[a-z0-9]+/gi);
         if (VIEW) {
@@ -246,10 +247,28 @@
           this.imageLoadState = new Array(this.pageData.images.length).fill(false);
         }
 
+        // Toggle lighbox
+        if (this.pageData.images?.length > 2 && this.currentPage !== 'landing') {
+          this.hasLightbox = true;
+          this.lightboxImage = this.pageData.images[0];
+        } else {
+          this.hasLightbox = false;
+        }
+
         // Set video player size
         if (this.pageData.videoLink) {
           this.videoPlayerWidth = window.innerWidth > 768 ? 720 : window.innerWidth - 48;
           this.videoPlayerHeight = (this.pageData.videoLinkHeight || 405) * (this.videoPlayerWidth / 720);
+        }
+      },
+      openImage(image) {
+        if (this.hasLightbox) {
+          this.lightboxImage = image;
+          window.scrollTo({
+            top: document.getElementById('w34ufs').getBoundingClientRect().top + window.scrollY - 16,
+            left: 0,
+            behavior: 'smooth'
+          });
         }
       },
       openItem(i) {
