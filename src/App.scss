@@ -293,8 +293,10 @@ $navAniDuation: 0.3s;
     @media (max-width: $md-viewport) {
       &-gallery {
         &-item {
-          min-width: 50%;
-          max-width: 100%;
+          &.hasLightbox,
+          .landing-page & {
+            max-width: calc(50% - 1rem);
+          }
         }
       }
     }
@@ -307,12 +309,16 @@ $navAniDuation: 0.3s;
       }
       
       &-gallery-item {
-        width: 100%;
-        max-width: 100%;
-
+        &.hasLightbox,
+        .landing-page &,
         &:not(.hasLightbox) {
           width: 100%;
           max-width: 100%;
+
+          &.open {
+            cursor: default;
+            opacity: 1;
+          }
         }
         
         // Show site logo as first image on mobile
